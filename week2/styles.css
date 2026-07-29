@@ -1,0 +1,40 @@
+#box {
+    position:absolute;
+    left: 5px;
+    top: 5px;
+    background-color: red;
+    width: 100px;
+    height: 100px;
+    animation-name:moveRight;
+    animation-duration: 3s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-fill-mode: forwards;
+}
+
+@keyframes moveRight {
+    0% {
+        left: 0px;
+        top: 0px;
+        background-color: red;
+    }
+
+    33% {
+        left: 1000px;
+        top: 0px;
+        background-color: blueviolet;
+    }
+
+    67% {
+        left: 1000px;
+        top: 500px;
+        background-color: green;
+    }
+
+    100% {
+        left: 0px;
+        top: 500px;
+        background-color: yellow;
+    }
+}
