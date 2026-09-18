@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Te Hono Tech Challenge</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- BANNER -->
+    <a href="https://jschollitt.github.io/THTHackathon/" target="_blank" id="banner-link">
+        <div id="banner-ad">
+            <!-- SCENE 1 -->
+            <div class="scene scene-1">
+                <div class="bg" style="background-image: url('img/scene1-bg.jpg');"></div>
+                <div class="text">Digital Marae Archive</div>
+            </div>
+            <!-- SCENE 2 -->
+            <div class="scene scene-2">
+                <div class="bg" style="background-image: url('img/scene2-bg.jpg');"></div>
+                <div class="text">Te Reo Learning App</div>
+            </div>
+            <div id="student-id-banner">ID: 1608466</div>
+        </div>
+    </a>
+
+    <!-- MAIN GRID -->
+    <div id="main-grid">
+
+        <!-- REGISTRATION -->
+        <section id="registration">
+            <h2>Register for the Hackathon</h2>
+            <div class="progress">Step 1 of 4</div>
+            <form id="reg-form">
+                <div class="form-step active">
+                    <label>Date of Birth: <input type="date" name="dob"></label>
+                    <label>Entourage Size: <input type="number" name="entourage" min="1"></label>
+                </div>
+                <div class="form-step">
+                    <label>Contact Name: <input type="text" name="name"></label>
+                    <label>Email: <input type="email" name="email"></label>
+                </div>
+                <div class="form-step">
+                    <p>Skills (checkboxes placeholder)</p>
+                    <label><input type="checkbox" name="skills" value="web"> Web</label>
+                    <label><input type="checkbox" name="skills" value="data"> Data</label>
+                </div>
+                <div class="form-step">
+                    <label><input type="checkbox" name="terms"> I agree</label>
+                    <button type="submit">Submit</button>
+                </div>
+                <div id="nav-buttons">
+                    <button type="button" id="prev-btn" disabled>Previous</button>
+                    <button type="button" id="next-btn">Next</button>
+                </div>
+            </form>
+            <!-- SUMMARY PLACEHOLDER -->
+            <div id="summary" style="display:none;">
+                <h3>Registration Summary</h3>
+                <div id="summary-content"></div>
+            </div>
+        </section>
+
+        <!-- SIDEBAR AD -->
+        <aside id="sidebar">
+            <a href="https://jschollitt.github.io/THTHackathon/#success" target="_blank" id="sidebar-link">
+                <div id="sidebar-ad">
+                    <div id="sidebar-bg" style="background-image: url('img/sidebar-bg.jpg');"></div>
+                    <div id="sidebar-title">Flora Finda</div>
+                    <div id="sidebar-sub">Previous Hackathon Success</div>
+                    <div id="sidebar-student">ID: 1608466</div>
+                </div>
+            </a>
+            <button id="replay-btn">Replay Ad</button>
+        </aside>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Te Hono Tech Challenge</p>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

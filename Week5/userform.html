@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <section>
+        <h2 class="underline">Form Pages</h2>
+
+        <div class="container-half card">
+            <subtitle class="card-title">Input Forms</subtitle>
+            <progress value="10" max="100"></progress>
+            <div id="form-page1" class="form-page" style="display: block">
+                <div> <!-- page title -->
+                    <h3>Personal Details</h3>
+                </div>
+                <div> <!-- page input fields -->
+                    <label for="firstName" class="row">
+                        First Name:
+                        <input type="text" id=""name-first" />
+                    </label>
+                    <label for="lastName" class="row">
+                        Last Name:
+                        <input type="text" id="name-last" />
+                    </label>
+                </div>
+                <div> <!-- page nav buttons -->
+                    <button class="next" type="button" onclick="showPage(2)">
+                        Next Page
+                    </button>"
+                </div>
+            </div>
+            <div id="form-page2" class="form-page" style="display: block">
+                <div> <!-- page title -->
+                    <h3>Vehicle Details</h3>
+                </div>
+                <div> <!-- radio button input -->
+                    <label for="vehicle-sedan">
+                        <input
+                        type="radio"
+                        id="vehicle-sedan"
+                        name="vehicle"
+                        value="Sedan"
+                        checked="true"
+                        />
+                        Van
+                    </label>
+                    <label for="vehicle-SUV">
+                        <input
+                        type="radio"
+                        id="vehicle-suv"
+                        name="vehicle"
+                        value="SUV"
+                        />
+                        SUV
+                    </label>
+                </div>
+                <div> <!-- select box input --> 
+                    <label for="vehicle-make">
+                        Make:
+                        <select>
+                            <option value="Toyota">Toyota</option>
+                            <option value="Mazda">Mazda</option>
+                            <option value="Honda">Honda</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+            <div> <!-- page nav buttons -->
+                <button class="next" type="button" onclick="showpage(3)">
+                    Next Page
+                </button>
+            </div>
+            <div id="form-page3" class="form-page" style="display: block"></div>
+        </div>
+        
+        <div class="container-half card"></div>
+        <script src="formPaging.js></script>
+    </section>
+    
+</body>
+</html>
