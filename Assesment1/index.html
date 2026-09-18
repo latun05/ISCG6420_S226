@@ -1,74 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Te Hono Tech Challenge</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-    <!-- BANNER -->
+    <!-- PART 1: BANNER AD -->
     <a href="https://jschollitt.github.io/THTHackathon/" target="_blank" id="banner-link">
         <div id="banner-ad">
-            <!-- SCENE 1 -->
             <div class="scene scene-1">
-                <div class="bg" style="background-image: url('img/scene1-bg.jpg');"></div>
+                <div class="bg" style="background-image: url('scene1-bg.jpg');"></div>
                 <div class="text">Digital Marae Archive</div>
             </div>
-            <!-- SCENE 2 -->
             <div class="scene scene-2">
-                <div class="bg" style="background-image: url('img/scene2-bg.jpg');"></div>
+                <div class="bg" style="background-image: url('scene2-bg.jpg');"></div>
                 <div class="text">Te Reo Learning App</div>
             </div>
             <div id="student-id-banner">ID: 1608466</div>
         </div>
     </a>
 
-    <!-- MAIN GRID -->
+    <!-- PART 3: REGISTRATION SYSTEM -->
     <div id="main-grid">
 
-        <!-- REGISTRATION -->
         <section id="registration">
             <h2>Register for the Hackathon</h2>
-            <div class="progress">Step 1 of 4</div>
-            <form id="reg-form">
-                <div class="form-step active">
-                    <label>Date of Birth: <input type="date" name="dob"></label>
-                    <label>Entourage Size: <input type="number" name="entourage" min="1"></label>
+
+            <div id="progress-bar">
+                <div class="step active" data-step="1">1</div>
+                <div class="step" data-step="2">2</div>
+                <div class="step" data-step="3">3</div>
+                <div class="step" data-step="4">4</div>
+            </div>
+            <div id="progress-text">Step 1 of 4</div>
+
+            <form id="registration-form" novalidate>
+                <div class="form-step active" data-step="1">
+                    <label>
+                        Date of Birth:
+                        <input type="date" name="dob" required />
+                    </label>
+                    <label>
+                        Entourage Size:
+                        <input type="number" name="entourage" min="1" required />
+                    </label>
                 </div>
-                <div class="form-step">
-                    <label>Contact Name: <input type="text" name="name"></label>
-                    <label>Email: <input type="email" name="email"></label>
+
+                <div class="form-step" data-step="2">
+                    <label>
+                        Contact Name:
+                        <input type="text" name="name" required />
+                    </label>
+                    <label>
+                        Email:
+                        <input type="email" name="email" required />
+                    </label>
                 </div>
-                <div class="form-step">
-                    <p>Skills (checkboxes placeholder)</p>
-                    <label><input type="checkbox" name="skills" value="web"> Web</label>
-                    <label><input type="checkbox" name="skills" value="data"> Data</label>
+
+                <div class="form-step" data-step="3">
+                    <p>Select your technical skills:</p>
+                    <label>
+                        <input type="checkbox" name="skills" value="web" /> Web Development
+                    </label>
+                    <label>
+                        <input type="checkbox" name="skills" value="data" /> Data Analysis
+                    </label>
+                    <label>
+                        <input type="checkbox" name="skills" value="design" /> UI/UX Design
+                    </label>
+                    <label>
+                        <input type="checkbox" name="skills" value="cyber" /> Cybersecurity
+                    </label>
                 </div>
-                <div class="form-step">
-                    <label><input type="checkbox" name="terms"> I agree</label>
-                    <button type="submit">Submit</button>
+
+                <div class="form-step" data-step="4">
+                    <label>
+                        <input type="checkbox" name="terms" required />
+                        I agree to the Terms &amp; Conditions
+                    </label>
                 </div>
+
                 <div id="nav-buttons">
                     <button type="button" id="prev-btn" disabled>Previous</button>
                     <button type="button" id="next-btn">Next</button>
                 </div>
             </form>
-            <!-- SUMMARY PLACEHOLDER -->
-            <div id="summary" style="display:none;">
+
+            <div id="summary" style="display: none;">
                 <h3>Registration Summary</h3>
                 <div id="summary-content"></div>
+                <button id="done-btn" class="done-btn">Done</button>
             </div>
         </section>
 
-        <!-- SIDEBAR AD -->
+        <!-- PART 2: SIDEBAR AD -->
         <aside id="sidebar">
             <a href="https://jschollitt.github.io/THTHackathon/#success" target="_blank" id="sidebar-link">
                 <div id="sidebar-ad">
-                    <div id="sidebar-bg" style="background-image: url('img/sidebar-bg.jpg');"></div>
-                    <div id="sidebar-title">Flora Finda</div>
-                    <div id="sidebar-sub">Previous Hackathon Success</div>
+                    <!-- Scene 1 -->
+                    <div class="sidebar-scene active" data-index="0">
+                        <div class="sidebar-bg" style="background-image: url('sidebar1.jpg');"></div>
+                        <div class="sidebar-text">Flora Finda</div>
+                        <div class="sidebar-sub">Hackathon Success</div>
+                        <div class="sidebar-desc">Connecting with native harake</div>
+                    </div>
+                    <!-- Scene 2 -->
+                    <div class="sidebar-scene" data-index="1">
+                        <div class="sidebar-bg" style="background-image: url('sidebar2.jpg');"></div>
+                        <div class="sidebar-text">Flora Finda App</div>
+                        <div class="sidebar-sub">Community Mobile App</div>
+                        <div class="sidebar-desc">Track and protect native flora</div>
+                    </div>
+                    <!-- Scene 3 -->
+                    <div class="sidebar-scene" data-index="2">
+                        <div class="sidebar-bg" style="background-image: url('sidebar3.jpg');"></div>
+                        <div class="sidebar-text">Flora Finda</div>
+                        <div class="sidebar-sub">Sustainable and Cultural</div>
+                        <div class="sidebar-desc">Respecting tikanga</div>
+                    </div>
+                    <!-- Student ID – appears at the end and stays visible -->
                     <div id="sidebar-student">ID: 1608466</div>
                 </div>
             </a>
@@ -77,6 +130,7 @@
 
     </div>
 
+    <!-- FOOTER -->
     <footer>
         <p>&copy; 2026 Te Hono Tech Challenge</p>
     </footer>

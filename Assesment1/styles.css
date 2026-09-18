@@ -8,9 +8,10 @@ body {
     max-width: 1100px;
     margin: 20px auto;
     padding: 0 15px;
+    background: #fafafa;
 }
 
-/* BANNER */
+/* PART 1: BANNER AD */
 #banner-link {
     display: block;
     text-decoration: none;
@@ -23,22 +24,40 @@ body {
     overflow: hidden;
     background: #222;
     margin-bottom: 20px;
+    border-radius: 8px;
 }
+
 .scene {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    opacity: 0;
-    animation: sceneFade 10s infinite;
 }
-.scene-1 { animation-delay: 0s; }
-.scene-2 { animation-delay: 2s; }
 
-@keyframes sceneFade {
-    0%, 20% { opacity: 1; }
-    33%, 100% { opacity: 0; }
+.scene-1 {
+    animation: swipeOut 12s infinite;
+}
+.scene-2 {
+    animation: swipeIn 12s infinite;
+}
+
+@keyframes swipeOut {
+    0%   { transform: translateX(0); opacity: 1; }
+    25%  { transform: translateX(0); opacity: 1; }    
+    38%  { transform: translateX(-100%); opacity: 1; } 
+    42%  { transform: translateX(-100%); opacity: 0; }
+    100% { transform: translateX(-100%); opacity: 0; }
+}
+
+@keyframes swipeIn {
+    0%   { transform: translateX(100%); opacity: 0; }
+    25%  { transform: translateX(100%); opacity: 0; }  
+    38%  { transform: translateX(0); opacity: 1; }     
+    63%  { transform: translateX(0); opacity: 1; }     
+    75%  { transform: translateX(-100%); opacity: 1; } 
+    79%  { transform: translateX(-100%); opacity: 0; }
+    100% { transform: translateX(-100%); opacity: 0; }
 }
 
 .scene .bg {
@@ -47,54 +66,64 @@ body {
     background-size: cover;
     background-position: center;
 }
-
-/* SCENE 1: ZOOM */
 .scene-1 .bg {
     animation: zoomBg 12s infinite;
 }
-@keyframes zoomBg {
-    0% { transform: scale(1); }
-    20% { transform: scale(1.3); }
-    33% { transform: scale(1); }
-    100% { transform: scale(1); }
-}
-
-/* SCENE 2: SLIDE */
 .scene-2 .bg {
     animation: slideBg 12s infinite;
 }
+
+@keyframes zoomBg {
+    0%   { transform: scale(1); }
+    20%  { transform: scale(1.3); }
+    40%  { transform: scale(1); }
+    100% { transform: scale(1); }
+}
 @keyframes slideBg {
-    0% { transform: translateX(0); }
-    20% { transform: translateX(-50px); }
-    33% { transform: translateX(0); }
+    0%   { transform: translateX(0); }
+    20%  { transform: translateX(-50px); }
+    40%  { transform: translateX(0); }
     100% { transform: translateX(0); }
 }
 
-/* COLOR & SIZE CHANGE */
 .scene .text {
     position: absolute;
     bottom: 30px;
     left: 30px;
-    color: white;
+    color: #fafafa;
     font-size: 2rem;
     font-weight: bold;
-    text-shadow: 0 0 10px rgba(0,0,0,0.7);
+    text-shadow: 0 0 10px #000000;
     animation: textChange 12s infinite;
 }
 
+/* Colours of the rainbow */
 @keyframes textChange {
-    0% { color: #ff0; font-size: 2rem; }
-    20% { color: rgb(25, 0, 255); font-size: 2.8rem; }
-    33% { color: rgb(193, 15, 15); font-size: 2rem; }
-    100% { color: #ff0; font-size: 2rem; }
+    0%   { color: #ff1313; font-size: 2rem; }
+    20%  { color: #ff7700; font-size: 3rem; }
+    40%  { color: #ffd700; font-size: 2rem; }
+    60% { color: #3da90e; font-size: 3rem; }
+    80%   { color: #91076f; font-size: 2rem; }
 }
 
+#student-id-banner {
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+    color: #fafafa;
+    background: #000000;
+    padding: 5px 15px;
+    font-size: 1rem;
+    border-radius: 20px;
+    z-index: 10;
+    animation: idAppear 12s infinite;
+}
 @keyframes idAppear {
-    0%, 80% { opacity: 0; }
+    0%, 79% { opacity: 0; }
     90%, 100% { opacity: 1; }
 }
 
-/* MAIN GRID */
+/* PART 3: REGISTRATION SYSTEM */
 #main-grid {
     display: grid;
     grid-template-columns: 3fr 1fr;
@@ -102,47 +131,115 @@ body {
     margin-bottom: 20px;
 }
 
-/* REGISTRATION */
 #registration {
-    background: #f9f9f9;
+    background: #fafafa;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 8px;
 }
 #registration h2 {
+    margin-bottom: 15px;
+}
+
+#progress-bar {
+    display: flex;
+    gap: 10px;
     margin-bottom: 10px;
 }
-.progress {
+.step {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-weight: bold;
-    margin: 10px 0;
+    color: #555;
+    transition: 0.3s;
 }
+.step.active {
+    background: #007bff;
+    color: #fafafa;
+}
+#progress-text {
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
 .form-step {
     display: none;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
 }
 .form-step.active {
     display: flex;
 }
+
+.form-step label {
+    display: flex;
+    align-items: center;      
+    gap: 8px;                 
+}
+.form-step input[type="text"],
+.form-step input[type="email"],
+.form-step input[type="number"],
+.form-step input[type="date"] {
+    padding: 8px;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+.form-step input[type="checkbox"] {
+    margin-right: 8px;
+}
+
 #nav-buttons {
-    margin-top: 15px;
+    margin-top: 20px;
     display: flex;
     gap: 10px;
 }
 #nav-buttons button {
-    padding: 8px 16px;
+    padding: 8px 20px;
     border: none;
     border-radius: 4px;
     background: #007bff;
-    color: #fff;
+    color: #fafafa;
     cursor: pointer;
+    font-size: 1rem;
 }
 #nav-buttons button:disabled {
     background: #aaa;
     cursor: not-allowed;
 }
 
-/* SIDEBAR */
+#summary {
+    margin-top: 20px;
+    padding: 15px;
+    border: 2px solid #28a745;
+    background: #eaf9ea;
+    border-radius: 6px;
+}
+#summary-content {
+    white-space: pre-wrap;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+.done-btn {
+    margin-top: 15px;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 4px;
+    background: #007bff;
+    color: #fafafa;
+    cursor: pointer;
+    font-size: 1rem;
+}
+.done-btn:hover {
+    background: #0056b3;
+}
+
+/* PART 2: SIDEBAR AD */
 #sidebar {
     background: #f5f5f5;
     border: 1px solid #ccc;
@@ -167,52 +264,114 @@ body {
     background: #222;
     border-radius: 8px;
 }
-#sidebar-bg {
+
+.sidebar-scene {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    pointer-events: none;
+}
+.sidebar-scene.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.sidebar-bg {
     width: 100%;
     height: 100%;
     background-size: cover;
     background-position: center;
 }
-#sidebar-title,
-#sidebar-sub,
-#sidebar-student {
+
+.sidebar-text {
     position: absolute;
-    color: white;
-    text-shadow: 0 0 8px rgba(0,0,0,0.8);
-}
-#sidebar-title {
-    top: 30px;
+    bottom: 100px;
     left: 20px;
+    color: #fafafa;
     font-size: 1.8rem;
     font-weight: bold;
+    text-shadow: 0 0 10px #000000;
+    transform: translateX(-100%);
+    opacity: 0;
+    transition: transform 0.6s ease-out, opacity 0.6s ease-out;
 }
-#sidebar-sub {
-    top: 80px;
+.sidebar-sub {
+    position: absolute;
+    bottom: 70px;
     left: 20px;
-    font-size: 1.2rem;
+    color: #ffd700;
+    font-size: 1.1rem;
+    text-shadow: 0 0 8px #000000;
+    transform: translateX(-100%);
+    opacity: 0;
+    transition: transform 0.6s ease-out 0.15s, opacity 0.6s ease-out 0.15s;
 }
+.sidebar-desc {
+    position: absolute;
+    bottom: 45px;
+    left: 20px;
+    color: #fafafa;
+    font-size: 0.9rem;
+    text-shadow: 0 0 8px #000000;
+    transform: translateX(-100%);
+    opacity: 0;
+    transition: transform 0.6s ease-out 0.3s, opacity 0.6s ease-out 0.3s;
+}
+
+.sidebar-scene.active .sidebar-text,
+.sidebar-scene.active .sidebar-sub,
+.sidebar-scene.active .sidebar-desc {
+    transform: translateX(0);
+    opacity: 1;
+}
+
 #sidebar-student {
+    position: absolute;
     bottom: 15px;
     right: 20px;
-    background: rgba(0,0,0,0.5);
+    background: #000000;
     padding: 4px 12px;
     border-radius: 20px;
+    color:#fafafa;
     font-size: 0.9rem;
+    z-index: 20;
+    opacity: 0;
+    transition: opacity 0.5s ease;
 }
+
 #replay-btn {
     padding: 8px 20px;
     background: #28a745;
-    color: #fff;
+    color: #fafafa;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    font-size: 1rem;
+}
+#replay-btn:hover {
+    background: #1e7e34;
 }
 
 /* FOOTER */
 footer {
     background: #333;
-    color: #fff;
+    color: #fafafa;
     text-align: center;
-    padding: 12px;
+    padding: 15px;
     border-radius: 6px;
+    margin-top: 10px;
+}
+footer a {
+    color: #ffd700;
+    text-decoration: none;
+}
+footer a:hover {
+    text-decoration: underline;
+}
+footer p {
+    margin: 5px 0;
 }
