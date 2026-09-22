@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Frog Homework</title>
+  <style>
+    canvas {
+      border: 12px solid DarkGreen; /* required border */
+    }
+  </style>
+</head>
+<body>
+  <canvas id="myCanvas" width="500" height="500"></canvas>
+
+  <script>
+    var canvas, ctx;
+
+    // Pupil movement variables
+    var xp = 0, yp = 0;
+    var xpAdd = 2, ypAdd = 1;
+    var maxOffset = 15; // keeps pupils inside the eye area
+
+    window.onload = function() {
+      canvas = document.getElementById('myCanvas');
+      ctx = canvas.getContext('2d');
+
+      drawFrog();                  // first drawing
+      setInterval(moveEyes, 180);  // timer for eye movement
+    };
+
+    function drawBackground() {
+      // 460x460 square, centred inside 500x500 canvas
+      ctx.fillStyle = "#CC99FF";
+      ctx.fillRect(20, 20, 460, 460);
+    }
+
+    function drawBody() {
+      // Frog body
+      ctx.beginPath();
+      ctx.arc(250, 330, 100, 0, 2 * Math.PI);
+      ctx.closePath();
+      ctx.fillStyle = "#33FF99";
+      ctx.strokeStyle = "black";
+      ctx.lineWidth = 4;
+      ctx.fill();
+      ctx.stroke();
+    }
+
+    function drawLegs() {
+      // Two 45x85 legs attached to the body
+      ctx.fillStyle = "#009966";
+      ctx.fillRect(110, 300, 45, 85); // left leg
+      ctx.fillRect(345, 300, 45, 85); // right leg
+    }
+
+    function drawHead() {
+      // Frog head
+      ctx.beginPath();
+      ctx.arc(250, 200, 120, 0, 2 * Math.PI);
+      ctx.closePath();
+      ctx.fillStyle = "#33FF99";
+      ctx.strokeStyle = "black";
+      ctx.lineWidth = 4;
+      ctx.fill();
+      ctx.stroke();
+    }
+
+    function drawMouth() {
+      // Red semi-circle mouth
+      ctx.beginPath();
+      ctx.arc(250, 250, 80, 0, Math.PI, false);
+      ctx.closePath();
+      ctx.strokeStyle = "red";
+      ctx.lineWidth = 10;
+      ctx.stroke();
+    }
+
+    function drawEyes() {
+      // Eye areas
+      ctx.beginPath();
+      ctx.arc(200, 160, 45, 0, 2 * Math.PI);
+      ctx.closePath();
+      ctx.fillStyle = "#2A75B6";
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.arc(300, 160, 45, 0, 2 * Math.PI);
+      ctx.closePath();
+      ctx.fillStyle = "#2A75B6";
+      ctx.fill();
+    }
+
+    function drawPupils(offsetX, offsetY) {
+      // Two black circles with green borders
+      ctx.beginPath();
+      ctx.arc(200 + offsetX, 160 + offsetY, 15, 0, 2 * Math.PI);
+      ctx.closePath();
+      ctx.fillStyle = "black";
+      ctx.strokeStyle = "green";
+      ctx.lineWidth = 4;
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.arc(300 + offsetX, 160 + offsetY, 15, 0, 2 * Math.PI);
+      ctx.closePath();
+      ctx.fillStyle = "black";
+      ctx.strokeStyle = "green";
+      ctx.lineWidth = 4;
+      ctx.fill();
+      ctx.stroke();
+    }
+
+    function drawFrog() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      drawBackground();
+      drawBody();
+      drawLegs();
+      drawHead();
+      drawMouth();
+      drawEyes();
+      drawPupils(xp, yp);
+    }
+
+    function moveEyes() {
+      xp += xpAdd;
+      yp += ypAdd;
+
+      // Bounce pupil movement inside allowed area
+      if (xp > maxOffset || xp < -maxOffset) xpAdd = -xpAdd;
+      if (yp > maxOffset || yp < -maxOffset) ypAdd = -ypAdd;
+
+      drawFrog();
+    }
+  </script>
+</body>
+</html>
