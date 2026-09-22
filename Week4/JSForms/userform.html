@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Form</title>
+</head>
+<body>
+    <section>
+        <form id="user-form">
+            <label for="first-name">First Name</label>
+            <input
+                type="text"
+                id="first-name"
+                name="user_fname"
+                required
+            />
+            <br />
+
+            <label for="last-name">Last Name</label>
+            <input
+                type="text"
+                id="last-name"
+                name="user_lname"
+                required
+            />
+            <br />
+
+            <label for="email">Email Address</label>
+            <input
+                type="email"
+                id="email"
+                name="user_email"
+                required
+            />
+            <br />
+
+            <label for="profile-colour">Profile Colour</label>
+            <input
+                type="color"
+                id="profile-colour"
+                name="user_colour"
+            />
+            <br />
+
+            <label for="phone">Phone Number</label>
+            <input
+                type="tel"
+                id="phone"
+                name="user_phone"
+            />
+            <br />
+
+            <label for="billing-address">Billing Address</label>
+            <input
+                type="text"
+                id="billing-address"
+                name="user_address"
+            />
+            <br />
+
+            <button type="button" id="user-form-submit">Create User</button>
+        </form>
+    </section>
+
+    <!-- Where users will be displayed -->
+    <section id="user-list">
+
+    </section>
+
+    <!-- Script is at the end of body so the DOM is loaded before JS runs -->
+    <script src="submit-form.js"></script>
+</body>
+</html>

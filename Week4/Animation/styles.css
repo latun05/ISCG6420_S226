@@ -1,0 +1,25 @@
+#animWrapper {
+    /* Position wrapper in centre */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+    /* Child positioning and visibility */
+    position: relative;
+    overflow: hidden;
+
+    /* Wrapper size and style */
+    width: 800px;
+    height: 600px;
+    border: 2px solid #000;
+}
+
+#animBlock {
+    /* position with Top and Left */
+    position: absolute;
+
+    /* Block size and style */
+    width: 30px;
+    height: 30px;
+    background-color: green;
+}
