@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Space Move Test</title>
+    <style>
+        .mybackground {
+            position: relative;
+            overflow: hidden;
+            width: 800px;
+            height: 600px;
+            background-image: url(bgSky.jpg);
+        }
+
+        .mybackground .spaceship {
+            position: absolute;    
+            top: 250px;
+            left: 250px;
+            background-image: url(spaceship.gif);
+            width: 110px;
+            height: 90px;
+            padding-top: 0px;
+            text-align: center;    
+            color: black;
+            white-space: nowrap;
+        }
+
+        .myButton {
+            background-color: #69ACE2;
+            color: white;
+            width: 100px;
+            height: 20px;
+            border: 5px solid blue;
+            font-size: 14px;
+            cursor: pointer;
+            text-align: center;
+            padding: 5px;
+            user-select: none; /* Prevents text highlighting when clicking */
+        }    
+    </style>
+    <script>
+        var x = 250; // P0 X
+        var y = 250; // P0 Y
+        var state = 'a';
+        var intervalId = null;
+        var audio = new Audio('space.mp3'); 
+
+        function moveSpaceShip() {
+            // Requirement 1: Move 2 pixels for x and y
+            // Requirement 2: Switch statement for paths a, b, c, d, e
+            switch(state) {
+                case 'a': // Move diagonally up to P1 (30, 30)
+                    x -= 2;
+                    y -= 2;
+                    if (x <= 30 && y <= 30) {
+                        x = 30; y = 30;
+                        state = 'b';
+                    }
+                    break;
+                case 'b': // Move down to P2 (30, 470)
+                    y += 2;
+                    if (y >= 470) {
+                        y = 470;
+                        state = 'c';
+                    }
+                    break;
+                case 'c': // Move diagonally up to P3 (470, 30)
+                    x += 2;
+                    y -= 2;
+                    if (x >= 470 && y <= 30) {
+                        x = 470; y = 30;
+                        state = 'd';
+                    }
+                    break;
+                case 'd': // Move down to P4 (470, 470)
+                    y += 2;
+                    if (y >= 470) {
+                        y = 470;
+                        state = 'e';
+                    }
+                    break;
+                case 'e': // Move diagonally up to P0 (250, 250) and stop
+                    x -= 2;
+                    y -= 2;
+                    if (x <= 250 && y <= 250) {
+                        x = 250; y = 250;
+                        state = 'a'; // Reset state
+                        stopSpaceShip(); // Requirement 3: Stop moving and stop sound
+                    }
+                    break;
+            }
+
+            // Update the CSS position of the spaceship
+            var ship = document.getElementById("myspaceship");
+            ship.style.left = x + "px";
+            ship.style.top = y + "px";
+        }
+
+        function startSpaceShip() {
+            // Requirement 1: Timer every 30 milliseconds
+            if (intervalId === null) {
+                // Requirement 3: Play sound while moving
+                audio.play().then(() => {
+                    console.log("Audio started playing.");
+                }).catch(error => {
+                    console.error("Audio playback failed! Reason:", error);
+                    alert("Could not play audio. Check the console (F12) for details.");
+                });
+
+                intervalId = setInterval(moveSpaceShip, 30);
+            }
+        }
+
+        function stopSpaceShip() {
+            // Requirement 3: Stop sound when spaceship stops
+            clearInterval(intervalId);
+            intervalId = null;
+            audio.pause();
+            audio.currentTime = 0;
+        }
+	//your code
+    </script>
+</head>
+<body>
+    <div class="mybackground">
+        <!-- Added onclick attribute to trigger the function -->
+        <div class="myButton" id="start" onclick="startSpaceShip()">Move Spaceship</div>
+        <br />
+        <div class="spaceship" id="myspaceship"></div>
+    </div>
+</body>
+</html>

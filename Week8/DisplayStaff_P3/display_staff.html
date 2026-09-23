@@ -1,0 +1,89 @@
+<html>
+<head>
+<title>IT Company - Staff</title>
+<style>
+#dispStaff {
+	background-color: lightgreen;
+}
+#dispStaff {
+	padding: 20px;
+}
+#dispStaff, td {
+	font-family: sans-serif, courier;
+	padding: 20px;
+}
+img{
+	border-radius:20px;
+}
+.staffnames {
+	font-size: 25px;
+	font-family: Georgia, serif;
+}
+</style>
+</head>
+<body >
+<script>
+	        // Requirement 1: Define object "staff" with two properties
+        function Staff(staffName, image) {
+            this.staffName = staffName;
+            this.image = image;
+        }
+
+        // Requirement 2: Declare staffArray and create four instances
+        var staffArray = [
+            new Staff("Bella", "bella.jpg"),
+            new Staff("Bob", "bob.jpg"),
+            new Staff("Mary", "mary.jpg"),
+            new Staff("Jerry", "jerry.jpg")
+        ];
+
+        // Requirement 3: Function display_staff()
+        function display_staff() {
+            var table = document.getElementById("dispStaff");
+            
+            // Clear any existing rows (in case button is clicked twice)
+            table.innerHTML = "";
+
+            // Create a single row to hold all staff members
+            var row = document.createElement("tr");
+
+            // Loop through the staffArray to dynamically create cells
+            for (var i = 0; i < staffArray.length; i++) {
+                var cell = document.createElement("td");
+                
+                // Create the image element
+                var img = document.createElement("img");
+                img.src = staffArray[i].image;
+                img.width = 100; // Optional: set a width to keep it neat
+                
+                // Add click event to the image
+                // We use a closure or let to ensure the correct name is captured
+                (function(staffMember) {
+                    img.onclick = function() {
+                        alert("I am " + staffMember.staffName);
+                    };
+                })(staffArray[i]);
+
+                // Create the name text
+                var nameSpan = document.createElement("span");
+                nameSpan.className = "staffnames";
+                nameSpan.innerHTML = staffArray[i].staffName;
+
+                // Append image and name to the cell, then cell to the row
+                cell.appendChild(img);
+                cell.appendChild(nameSpan);
+                row.appendChild(cell);
+            }
+
+            // Append the completed row to the table
+            table.appendChild(row);
+        }
+// your code
+</script>
+<h1>IT Company</h1>
+<button type="button" onclick="display_staff()">Display staff</button>
+<table border='0' id="dispStaff">
+</table>
+
+</body>
+</html>

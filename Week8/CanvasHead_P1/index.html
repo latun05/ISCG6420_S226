@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas Head Test</title>
+    <style>
+        /* Requirement 1: Canvas properties */
+        canvas {
+            border: 10px solid Blue;
+            background-color: #FFFF80;
+        }
+    </style>
+</head>
+<body onload="init()">
+    <!-- Requirement 1: Canvas element -->
+    <canvas id="myCanvas" width="600" height="600"></canvas>
+
+    <script>
+        var ctx;
+        var mouthRadius = 22;
+        var growing = true;
+
+        function init() {
+            var canvas = document.getElementById("myCanvas");
+            ctx = canvas.getContext("2d");
+            
+            // Draw the static parts of the face first
+            drawBody();
+            drawHead();
+            drawHands();
+            drawEyes();
+            
+            // Start the mouth animation (Requirement 11)
+            setInterval(animateMouth, 200);
+        }
+
+        // Requirement 2: Body (Square)
+        function drawBody() {
+            ctx.beginPath();
+            ctx.rect(70, 400, 460, 180);
+            ctx.fillStyle = "DarkCyan";
+            ctx.fill();
+            ctx.closePath();
+        }
+
+        // Requirement 3: Head (Semi-circle)
+        function drawHead() {
+            ctx.beginPath();
+            ctx.arc(300, 400, 225, Math.PI, 2 * Math.PI, false);
+            ctx.fillStyle = "Gold";
+            ctx.fill();
+            ctx.lineWidth = 4;
+            ctx.strokeStyle = "black";
+            ctx.stroke();
+            ctx.closePath();
+        }
+
+        // Requirement 4: Hands (Two green semi-circles)
+        function drawHands() {
+            // Left hand
+            ctx.beginPath();
+            ctx.arc(70, 450, 50, 0, Math.PI, false);
+            ctx.fillStyle = "LawnGreen";
+            ctx.fill();
+            ctx.lineWidth = 4;
+            ctx.strokeStyle = "#663300";
+            ctx.stroke();
+            ctx.closePath();
+
+            // Right hand
+            ctx.beginPath();
+            ctx.arc(530, 450, 50, 0, Math.PI, false);
+            ctx.fillStyle = "LawnGreen";
+            ctx.fill();
+            ctx.lineWidth = 4;
+            ctx.strokeStyle = "#663300";
+            ctx.stroke();
+            ctx.closePath();
+        }
+
+        // Requirement 6 & 10: Eyes (Blue circles + Black middle eyes)
+        function drawEyes() {
+            // Left Blue Eye
+            ctx.beginPath();
+            ctx.arc(200, 300, 40, 0, 2 * Math.PI);
+            ctx.fillStyle = "PowderBlue";
+            ctx.fill();
+            ctx.lineWidth = 4;
+            ctx.strokeStyle = "#663300";
+            ctx.stroke();
+            ctx.closePath();
+
+            // Right Blue Eye
+            ctx.beginPath();
+            ctx.arc(400, 300, 40, 0, 2 * Math.PI);
+            ctx.fillStyle = "PowderBlue";
+            ctx.fill();
+            ctx.lineWidth = 4;
+            ctx.strokeStyle = "#663300";
+            ctx.stroke();
+            ctx.closePath();
+
+            // Left Middle Eye (Black)
+            ctx.beginPath();
+            ctx.arc(200, 300, 10, 0, 2 * Math.PI);
+            ctx.fillStyle = "Black";
+            ctx.fill();
+            ctx.lineWidth = 5;
+            ctx.strokeStyle = "blue";
+            ctx.stroke();
+            ctx.closePath();
+
+            // Right Middle Eye (Black)
+            ctx.beginPath();
+            ctx.arc(400, 300, 10, 0, 2 * Math.PI);
+            ctx.fillStyle = "Black";
+            ctx.fill();
+            ctx.lineWidth = 5;
+            ctx.strokeStyle = "blue";
+            ctx.stroke();
+            ctx.closePath();
+        }
+
+        // Requirement 5 & 11: Mouth (Animated semi-circle)
+        function drawMouth(radius) {
+            ctx.beginPath();
+            ctx.arc(300, 360, radius, 0, Math.PI, false);
+            ctx.lineWidth = 13;
+            ctx.strokeStyle = "red";
+            ctx.stroke();
+            ctx.closePath();
+        }
+
+        function animateMouth() {
+            // Clear the area where the mouth is drawn to prevent smearing
+            ctx.clearRect(250, 330, 100, 80); 
+            
+            // Re-draw the head background behind the mouth so it looks clean
+            ctx.beginPath();
+            ctx.arc(300, 400, 225, Math.PI, 2 * Math.PI, false);
+            ctx.fillStyle = "Gold";
+            ctx.fill();
+            ctx.lineWidth = 4;
+            ctx.strokeStyle = "black";
+            ctx.stroke();
+            ctx.closePath();
+
+            // Update radius
+            if (growing) {
+                mouthRadius += 2;
+                if (mouthRadius >= 52) growing = false;
+            } else {
+                mouthRadius -= 2;
+                if (mouthRadius <= 22) growing = true;
+            }
+
+            // Draw the mouth with the new radius
+            drawMouth(mouthRadius);
+        }
+    </script>
+</body>
+</html>
