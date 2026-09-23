@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Part 2 - Moving Spaceship</title>
+    <style>
+        .mybackground {
+            position: relative;
+            overflow: hidden;
+            width: 800px;
+            height: 800px;
+            background-image: url(bgSky.jpg);
+        }
+
+        .mybackground .spaceship {
+            position: absolute;
+            top: 355px; /* Starting Y */
+            left: 690px; /* Starting X */
+            background-image: url(spaceship.gif);
+            width: 110px;
+            height: 90px;
+            padding-top: 0px;
+            text-align: center;
+            color: black;
+            white-space: nowrap;
+        }
+
+        .myButton {
+            background-color: #69ACE2;
+            color: white;
+            width: 100px;
+            height: 40px;
+            border: 5px solid blue;
+            font-size: 14px;
+            cursor: pointer;
+            padding: 5px;
+            text-align: center;
+            line-height: 30px;
+            user-select: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="mybackground">
+        <!-- Requirement 1: Provided button element with ID myButton -->
+        <div class="myButton" id="myButton">Move Spaceship</div>
+        <div class="spaceship" id="myspaceship"></div>
+    </div>
+
+    <script>
+        // Starting position (matches the CSS initial position)
+        var x = 690;
+        var y = 355;
+        var state = 'a';
+        var intervalId = null;
+        var audio = new Audio('./fly.mp3'); // Requirement 3: Load audio
+
+        // Requirement 1: Event listener to call the move function when the div is clicked
+        document.getElementById("myButton").addEventListener("click", startMoving);
+
+        function startMoving() {
+            if (intervalId === null) {
+                // Requirement 3: Play looping sound
+                audio.loop = true;
+                audio.play().catch(e => console.log("Audio error:", e));
+                
+                // Requirement 1: Timer runs every 30 milliseconds
+                intervalId = setInterval(move, 30);
+            }
+        }
+
+        // Requirement 2: Movement logic with a switch statement
+        function move() {
+            switch(state) {
+                // Path a: move left
+                case 'a':
+                    x -= 2;
+                    if (x <= 0) {
+                        x = 0; // Snap to boundary
+                        state = 'b';
+                    }
+                    break;
+
+                // Path b: move diagonally up and right
+                case 'b':
+                    x += 2;
+                    y -= 2;
+                    if (y <= 0) {
+                        y = 0; // Snap to boundary
+                        state = 'c';
+                    }
+                    break;
+
+                // Path c: move down
+                case 'c':
+                    y += 2;
+                    if (y >= 710) {
+                        y = 710; // Snap to boundary
+                        state = 'd';
+                    }
+                    break;
+
+                // Path d: move diagonally up and right
+                case 'd':
+                    x += 2;
+                    y -= 2;
+                    if (x >= 690) {
+                        x = 690; // Snap to boundary
+                        stopMoving(); // Stops the animation and sound
+                    }
+                    break;
+            }
+
+            // Update the CSS position of the spaceship
+            var ship = document.getElementById("myspaceship");
+            ship.style.left = x + "px";
+            ship.style.top = y + "px";
+        }
+
+        // Requirement 3: Stop the timer and the sound
+        function stopMoving() {
+            clearInterval(intervalId);
+            intervalId = null;
+            audio.pause();
+            audio.currentTime = 0; // Reset audio to the beginning
+        }
+    </script>
+</body>
+</html>

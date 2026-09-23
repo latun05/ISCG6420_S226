@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Select Mark</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        h1 {
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 5px 10px;
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+        /* Styling the table to look like the screenshot */
+        table {
+            border-collapse: collapse;
+            border: 2px solid #333;
+            width: 500px;
+        }
+        td {
+            background-color: #B0D4E3; /* Light blue background */
+            border: 1px solid #333;
+            padding: 15px;
+            text-align: center;
+            font-size: 18px;
+            width: 20%;
+        }
+        #message {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Select Mark</h1>
+    
+    <!-- Provided button element -->
+    <button id="btnDisplay" onclick="display_inputs()">Display Marks</button>
+    
+    <!-- Provided table element -->
+    <table id="marksTable">
+        <!-- Table cells will be dynamically populated here -->
+    </table>
+
+    <!-- Container for the "You selected X" message -->
+    <div id="message"></div>
+
+    <script>
+        // Requirement 1: Function to dynamically populate the table
+        function display_inputs() {
+            var table = document.getElementById("marksTable");
+            
+            // Clear any existing table content
+            table.innerHTML = "";
+            
+            // Create a single row to hold all cells
+            var row = document.createElement("tr");
+
+            // Loop 5 times to create 5 cells
+            for (var i = 1; i <= 5; i++) {
+                var cell = document.createElement("td");
+                
+                // Create the radio button
+                var radio = document.createElement("input");
+                radio.type = "radio";
+                radio.name = "mark";        // Same name groups them together
+                radio.value = i;
+                radio.id = "radio" + i;
+                
+                // Requirement 2: Add 'change' event listener to each radio button
+                radio.addEventListener("change", function() {
+                    // 'this' refers to the radio button that triggered the event
+                    document.getElementById("message").innerHTML = "You selected " + this.value;
+                });
+
+                // Create the label
+                var label = document.createElement("label");
+                label.htmlFor = "radio" + i;
+                label.innerHTML = i;
+
+                // Append radio button and label to the cell
+                // Using flexbox or inline-block to align them nicely
+                cell.style.display = "flex";
+                cell.style.alignItems = "center";
+                cell.style.justifyContent = "center";
+                cell.style.gap = "10px";
+
+                cell.appendChild(label);
+                cell.appendChild(radio);
+                
+                // Append cell to the row
+                row.appendChild(cell);
+            }
+
+            // Append the completed row to the table
+            table.appendChild(row);
+        }
+    </script>
+
+</body>
+</html>

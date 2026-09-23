@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>Marks</title>
+    <style>
+        body {
+            text-align: center;
+        }
+        table:has(tr) {
+            border: 2px solid darkblue;
+            margin: 10px 0px;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        td {
+            padding: 10px 20px;
+            background-color: rgba(112, 154, 189, 0.39);
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Select Number</h1>
+    <button id="generate" type="button">Display Numbers</button>
+    <table id="output"></table>
+
+    <script>
+        // provided data structure
+        document.querySelector("#generate").addEventListener("click", display_numbers);
+        
+        const numbers = ['tahi', 'rua', 'toru', 'wha', 'rima', 'ono', 'whitu', 'waru', 'iwa', 'tekau'];
+        const table = document.querySelector("#output");
+
+        // Requirement 1: Function to dynamically populate the table
+        function display_numbers() {
+            // Requirement 1a: Check if the table is empty (no rows)
+            if (table.rows.length === 0) {
+                // Create a new table row
+                var row = document.createElement("tr");
+
+                // Requirement 1b: Populate the row with a cell for each element in the numbers array
+                for (let i = 0; i < numbers.length; i++) {
+                    var cell = document.createElement("td");
+                    
+                    // Requirement 1c: Populate each cell with a button displaying the string value
+                    var btn = document.createElement("button");
+                    btn.innerHTML = numbers[i];
+                    
+                    // Requirement 2: Create a click event listener for each button
+                    btn.addEventListener("click", function() {
+                        // Requirement 2a: Check if an h2 element exists on the page
+                        var h2 = document.querySelector("h2");
+                        
+                        if (!h2) {
+                            // If it doesn't exist, create a new h2 and append it to the body
+                            h2 = document.createElement("h2");
+                            document.body.appendChild(h2);
+                        }
+                        
+                        // Requirement 2b: Modify the h2 to display the selected message
+                        h2.innerHTML = "You selected " + numbers[i];
+                    });
+
+                    // Append the button to the cell, and the cell to the row
+                    cell.appendChild(btn);
+                    row.appendChild(cell);
+                }
+
+                // Append the completed row to the table
+                table.appendChild(row);
+            }
+        }
+    </script>
+</body>
+
+</html>

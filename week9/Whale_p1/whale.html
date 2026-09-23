@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Part 1 - Whale</title>
+    <style>
+        /* Requirement 1: Canvas properties */
+        canvas {
+            border: 10px solid Chocolate;
+            background-color: #D9B3FF;
+        }
+    </style>
+</head>
+
+<!-- FIX: Added onload="init()" to start the drawing process -->
+<body onload="init()">
+    <canvas id="canvas" width="800" height="500"></canvas>
+    
+    <script>
+        var ctx;
+        var sprayX = 400; // Starting X position for sea spray
+        var sprayY = 180; // Starting Y position for sea spray
+
+        function init() {
+            var canvas = document.getElementById("canvas");
+            ctx = canvas.getContext("2d");
+            
+            // Draw the initial scene
+            drawScene();
+            
+            // Requirement 7: Move sea spray every 180 milliseconds
+            setInterval(moveSpray, 180);
+        }
+
+        function drawScene() {
+            // Clear the entire canvas before redrawing to handle the moving spray
+            ctx.clearRect(0, 0, 800, 500);
+
+            // Requirement 2: Draw the whale body (Semi-circle, #999966, Radius 200)
+            // Center at (400, 400), drawing the top half (dome shape)
+            ctx.beginPath();
+            ctx.arc(400, 400, 200, Math.PI, 0, false); 
+            ctx.fillStyle = "#999966";
+            ctx.fill();
+            ctx.lineWidth = 4;
+            ctx.strokeStyle = "#663300";
+            ctx.stroke();
+            ctx.closePath();
+
+            // Requirement 6: Draw the whale tail (Rectangle, 50x100, #663300)
+            ctx.beginPath();
+            ctx.rect(570, 280, 50, 100); 
+            ctx.fillStyle = "#663300";
+            ctx.fill();
+            ctx.closePath();
+
+            // Requirement 3: Draw the water (Square, 800x100, #0099FF)
+            // Drawn after the whale body so it covers the bottom curve
+            ctx.beginPath();
+            ctx.rect(0, 400, 800, 100);
+            ctx.fillStyle = "#0099FF";
+            ctx.fill();
+            ctx.closePath();
+
+            // Requirement 4: Draw two yellow windows (Radius 15)
+            // Left Window
+            ctx.beginPath();
+            ctx.arc(300, 350, 15, 0, 2 * Math.PI);
+            ctx.fillStyle = "#FFFF99";
+            ctx.fill();
+            ctx.lineWidth = 4;
+            ctx.strokeStyle = "#663300";
+            ctx.stroke();
+            ctx.closePath();
+
+            // Right Window
+            ctx.beginPath();
+            ctx.arc(350, 350, 15, 0, 2 * Math.PI);
+            ctx.fillStyle = "#FFFF99";
+            ctx.fill();
+            ctx.lineWidth = 4;
+            ctx.strokeStyle = "#663300";
+            ctx.stroke();
+            ctx.closePath();
+
+            // Requirement 5: Draw the sea spray (White semi-circle, Radius 40)
+            // 'true' draws the bottom half (bowl shape) as shown in the target image
+            ctx.beginPath();
+            ctx.arc(sprayX, sprayY, 40, Math.PI, 0, true); 
+            ctx.lineWidth = 10;
+            ctx.strokeStyle = "white";
+            ctx.stroke();
+            ctx.closePath();
+        }
+
+        function moveSpray() {
+            // Requirement 7: Move sea spray up and left diagonally
+            sprayX -= 2; // Move left
+            sprayY -= 2; // Move up
+            
+            // Reset spray position if it goes off screen (optional, but keeps animation going)
+            if (sprayX < 0 || sprayY < 0) {
+                sprayX = 400;
+                sprayY = 180;
+            }
+            
+            drawScene();
+        }       
+    </script>
+</body>
+
+</html>

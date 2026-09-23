@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html;" charset="UTF-8">
+    <style>
+        .mybackground {
+            position: relative;
+            overflow: hidden;
+            width: 600px;
+            height: 600px;
+            background-image: url(grass_bg.jpg);
+        }
+
+        .mybackground .bee {
+            position: absolute;
+            top: 100px;
+            left: 100px;
+            background-image: url(bee.gif);
+            width: 140px;
+            height: 105px;
+            padding-top: 0px;
+            text-align: center;
+
+            color: black;
+            white-space: nowrap;
+        }
+
+        .myButton {
+            background-color: yellow;
+            width: 90px;
+            height: 30px;
+            border: 5px solid green;
+            padding: 0px 0px 0px 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="mybackground">
+        <div style="left: 200px; top: 500px;" class="bee" id="mybee"></div>
+    </div>
+
+    //Requirement 1: Start button 
+    <div class="myButton" id="start" onclick="startBee()"> Start </div>
+    <script type="text/javascript">
+        var x = 200;
+        var y = 500;
+        var state = 'a';
+        var intervalId = null;
+        var audio = new Audio('bee.mp3'); // Requirement 3: Load audio
+    
+    // Requirement 1 & 2: Timer runs every 30ms
+        function moveBee() {
+            switch(state) {
+                // Requirement 2a: Move diagonally up and left
+                case 'a':
+                    x -= 2;
+                    y -= 2;
+                    if (y <= 250) { // When it arrives at top<=250px
+                        state = 'b';
+                    }
+                    break;
+
+                // Requirement 2b: Move diagonally up and right
+                case 'b':
+                    x += 2;
+                    y -= 2;
+                    if (y <= 0) { // When it arrives at top<=0px
+                        state = 'c';
+                    }
+                    break;
+
+                // Requirement 2c: Move diagonally down and right
+                case 'c':
+                    x += 2;
+                    y += 2;
+                    if (y >= 250) { // When it arrives at top>=250px
+                        state = 'd';
+                    }
+                    break;
+
+                // Requirement 2d: Move diagonally down and left
+                case 'd':
+                    x -= 2;
+                    y += 2;
+                    if (y >= 500) { // When it arrives at top>=500px
+                        y = 500;
+                        stopBee(); // Stop the bee
+                    }
+                    break;
+            }
+
+            // Update the position of the bee
+            var bee = document.getElementById("mybee");
+            bee.style.left = x + "px";
+            bee.style.top = y + "px";
+        }
+
+        function startBee() {
+            if (intervalId === null) {
+                // Requirement 3: Play looping sound
+                audio.loop = true;
+                audio.play().catch(e => console.log("Audio error:", e));
+                
+                // Requirement 1: Timer every 30 milliseconds
+                intervalId = setInterval(moveBee, 30);
+            }
+        }
+
+        function stopBee() {
+            clearInterval(intervalId);
+            intervalId = null;
+            
+            // Requirement 3: Stop the sound
+            audio.pause();
+            audio.currentTime = 0;
+        }
+        // Part 2 code goes here
+      
+    </script>
+</body>
+
+</html>
